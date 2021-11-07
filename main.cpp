@@ -15,10 +15,8 @@ double calc(vector<double> &vecD, vector<int> &vecI){
     auto it = vecI.begin();
     double sum{};
     for_each(vecD.begin(), vecD.end(), [&it, &sum](const auto &i){
-        double val = *it;
+        sum += (i - *it)*(i - *it);
         it = next(it);
-        double ras = i - val;
-        sum += ras*2;
     });
     return sum;
 }
