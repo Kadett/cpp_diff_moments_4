@@ -6,20 +6,22 @@
 using namespace std;
 
 template<typename T, typename E>
-void insert_sorted(T &cont, E val){
+void insert_sorted(T &cont, E val) {
     auto it = upper_bound(cont.begin(), cont.end(), val);
     cont.insert(it, val);
 }
 
-double calc(vector<double> &vecD, vector<int> &vecI){
+double calc(vector<double> &vecD, vector<int> &vecI) {
     auto it = vecI.begin();
     double sum{};
-    for_each(vecD.begin(), vecD.end(), [&it, &sum](const auto &i){
-        sum += (i - *it)*(i - *it);
+    for_each(vecD.begin(), vecD.end(), [&it, &sum](const auto &i) {
+        double tmp = i - *it;
+        sum += tmp * tmp;
         it = next(it);
     });
     return sum;
 }
+
 /*
 
 
@@ -32,37 +34,36 @@ double calc(vector<double> &vecD, vector<int> &vecI){
 int main() {
 
 
-
     vector<int> vec(10);
     list<int> list1(10);
-    generate(vec.begin(), vec.end(), [](){return rand()%100;});
-    generate(list1.begin(), list1.end(), [](){return rand()%100;});
+    generate(vec.begin(), vec.end(), []() { return rand() % 100; });
+    generate(list1.begin(), list1.end(), []() { return rand() % 100; });
     sort(vec.begin(), vec.end());
     list1.sort();
 
     cout << "First lesson:" << endl;
-    for_each(vec.begin(), vec.end(), [](const auto &i){cout << i << " ";});
+    for_each(vec.begin(), vec.end(), [](const auto &i) { cout << i << " "; });
     cout << endl;
     insert_sorted(vec, 64);
-    for_each(vec.begin(), vec.end(), [](const auto &i){cout << i << " ";});
+    for_each(vec.begin(), vec.end(), [](const auto &i) { cout << i << " "; });
     cout << endl << endl;
 
-    for_each(list1.begin(), list1.end(), [](const auto &i){cout << i << " ";});
+    for_each(list1.begin(), list1.end(), [](const auto &i) { cout << i << " "; });
     insert_sorted(list1, 41);
     cout << endl;
-    for_each(list1.begin(), list1.end(), [](const auto &i){cout << i << " ";});
+    for_each(list1.begin(), list1.end(), [](const auto &i) { cout << i << " "; });
 
     cout << "\n\n" << "Second lesson:" << endl;
     vector<double> vecDouble(100);
     vector<int> vecInt(100);
-    generate(vecDouble.begin(), vecDouble.end(), [](){
-        return rand()%10 + (double)(rand()%100)/100;
+    generate(vecDouble.begin(), vecDouble.end(), []() {
+        return rand() % 10 + (double) (rand() % 100) / 100;
     });
     sort(vecDouble.begin(), vecDouble.end());
-    for_each(vecDouble.begin(), vecDouble.end(), [](const auto &i){cout << i << " ";});
+    for_each(vecDouble.begin(), vecDouble.end(), [](const auto &i) { cout << i << " "; });
     copy(vecDouble.begin(), vecDouble.end(), vecInt.begin());
     cout << endl << endl;
-    for_each(vecInt.begin(), vecInt.end(), [](const auto &i){cout << i << " ";});
+    for_each(vecInt.begin(), vecInt.end(), [](const auto &i) { cout << i << " "; });
     cout << endl;
 
     cout << "error rate = " << calc(vecDouble, vecInt);
